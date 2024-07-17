@@ -14,10 +14,12 @@ import com.ilu.loan.dto.response.RoleResponse;
 import com.ilu.loan.entities.Role;
 import com.ilu.loan.services.RoleService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Authorization")
 @RequestMapping("/api/roles")
 public class RoleController {
 

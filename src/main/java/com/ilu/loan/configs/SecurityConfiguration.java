@@ -39,7 +39,11 @@ public class SecurityConfiguration {
                                         // "/v3/api-docs/**",
                                         // "/swagger-ui.html/**",
                                         // "/swagger-ui/**",
-                                        "/api/auth/**"
+                                        "/api/auth/**",
+                                        "/swagger-ui/index.html",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui.html/**",
+                                        "/swagger-ui/**"
                         },
                         "ROLE_CUSTOMER", new String[] {
                         // "/api/v1/user/**",

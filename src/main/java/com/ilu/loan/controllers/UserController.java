@@ -9,10 +9,12 @@ import com.ilu.loan.apis.responses.ApiResponse;
 import com.ilu.loan.dto.response.UserResponse;
 import com.ilu.loan.services.UserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Authorization")
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;

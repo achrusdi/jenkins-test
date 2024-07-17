@@ -18,10 +18,12 @@ import com.ilu.loan.dto.response.CustomerResponse;
 import com.ilu.loan.entities.Customer;
 import com.ilu.loan.services.CustomerService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Authorization")
 @RequestMapping("/api/customers")
 public class CustomerController {
 
