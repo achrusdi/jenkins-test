@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -43,14 +44,15 @@ public class SecurityConfiguration {
                                         "/swagger-ui/index.html",
                                         "/v3/api-docs/**",
                                         "/swagger-ui.html/**",
-                                        "/swagger-ui/**"
+                                        "/swagger-ui/**",
+                                        "/api/customers/**",
+
                         },
                         "ROLE_CUSTOMER", new String[] {
                         // "/api/v1/user/**",
                         },
                         "ROLE_ADMIN", new String[] {
                                         "/api/users/**",
-                                        "/api/customers/**",
                         });
 
         @Bean
@@ -75,9 +77,17 @@ public class SecurityConfiguration {
                                 .authorizeHttpRequests(req -> req
                                                 .requestMatchers(ENDPOINTS.get("WHITE_LIST"))
                                                 .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/instalment-types/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.DELETE, "/api/instalment-types/**")
+                                                .permitAll()
                                                 // .requestMatchers(HttpMethod.PUT, "/api/v1/user").permitAll()
                                                 .requestMatchers(ENDPOINTS.get("ROLE_CUSTOMER"))
                                                 .hasAnyAuthority("ROLE_CUSTOMER", "ROLE_ADMIN")
+                                                .requestMatchers(HttpMethod.POST, "/api/instalment-types")
+                                                .hasAnyAuthority("ROLE_STAFF", "ROLE_ADMIN")
+                                                .requestMatchers(HttpMethod.PUT, "/api/instalment-types")
+                                                .hasAnyAuthority("ROLE_STAFF", "ROLE_ADMIN")
                                                 .requestMatchers(ENDPOINTS.get("ROLE_ADMIN"))
                                                 .hasAnyAuthority("ROLE_ADMIN")
                                                 // .requestMatchers(ENDPOINTS.get("SELLER_LIST"))

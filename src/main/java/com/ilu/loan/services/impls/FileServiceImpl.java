@@ -77,12 +77,6 @@ public class FileServiceImpl implements FileService {
             String fileName = UUID.randomUUID().toString() + "." + ext;
             Files.copy(file.getInputStream(), Path.of(fullPath + "/" + fileName));
 
-
-            System.out.println("=========================================");
-            System.out.println("Customer: " + customer);
-            System.out.println("File Name: " + fileName);
-            System.out.println("=========================================");
-
             if (customer != null) {
                 ProfilePicture profilePicture = new ProfilePicture();
                 profilePicture.setName(fileName);
@@ -90,10 +84,6 @@ public class FileServiceImpl implements FileService {
                 profilePicture.setContentType(ext);
                 profilePicture.setSize(file.getSize());
                 profilePicture.setUrl(url);
-
-                System.out.println("=========================================");
-                System.out.println("Profile Picture: " + profilePicture);
-                System.out.println("=========================================");
                 profilePictureRepository.saveAndFlush(profilePicture);
             }
 

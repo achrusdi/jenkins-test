@@ -2,7 +2,6 @@ package com.ilu.loan.dto.request;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.ilu.loan.entities.Customer;
 
