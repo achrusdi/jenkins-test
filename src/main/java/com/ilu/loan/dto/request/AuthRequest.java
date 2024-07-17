@@ -1,5 +1,7 @@
 package com.ilu.loan.dto.request;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuthRequest {
     private String email;
     private String password;
-    private String isCustomer;
+    private List<String> roles;
 }

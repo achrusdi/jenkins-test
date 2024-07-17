@@ -60,16 +60,22 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         List<Role> roles = new ArrayList<>();
 
-        if (request.getIsCustomer() != null) {
-            Role customerRole = roleRepository.findByRole(Role.ERole.ROLE_CUSTOMER);
-            roles.add(customerRole);
+        if (request.getRoles() != null) {
 
-        } else {
-            Role adminRole = roleRepository.findByRole(Role.ERole.ROLE_ADMIN);
-            Role staffRole = roleRepository.findByRole(Role.ERole.ROLE_STAFF);
+            if (request.getRoles().contains("admin")) {
+                Role adminRole = roleRepository.findByRole(Role.ERole.ROLE_ADMIN);
+                roles.add(adminRole);
+            }
 
-            roles.add(adminRole);
-            roles.add(staffRole);
+            if (request.getRoles().contains("staff")) {
+                Role staffRole = roleRepository.findByRole(Role.ERole.ROLE_STAFF);
+                roles.add(staffRole);
+            }
+
+            if (request.getRoles().contains("customer")) {
+                Role customerRole = roleRepository.findByRole(Role.ERole.ROLE_CUSTOMER);
+                roles.add(customerRole);
+            }
         }
 
         user.setRoles(roles);
@@ -77,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
         userRepository.flush();
 
-        if (request.getIsCustomer() != null) {
+        if (request.getRoles() != null) {
             Customer customer = new Customer();
             customer.setUser(user);
             customerService.create(customer);
