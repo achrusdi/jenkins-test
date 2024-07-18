@@ -1,5 +1,7 @@
 package com.ilu.loan.entities;
 
+import com.ilu.loan.dto.response.TransactionLoanDetailResponse;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,5 +44,16 @@ public class TransactionLoanDetail {
     @ManyToOne
     @JoinColumn(name = "trx_loan_id")
     private TransactionLoan transactionLoan;
+
+    public TransactionLoanDetailResponse toResponse() {
+        return TransactionLoanDetailResponse.builder()
+                .id(id)
+                .loanStatus(loanStatus)
+                .nominal(nominal)
+                .transactionDate(transactionDate)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
+                .build();
+    }
 
 }

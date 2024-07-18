@@ -49,7 +49,8 @@ public class SecurityConfiguration {
 
                         },
                         "ROLE_CUSTOMER", new String[] {
-                        // "/api/v1/user/**",
+                                        // "/api/v1/user/**",
+                                        "/api/transactions"
                         },
                         "ROLE_ADMIN", new String[] {
                                         "/api/users/**",
@@ -85,9 +86,21 @@ public class SecurityConfiguration {
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.DELETE, "/api/loan-types/**")
                                                 .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/transactions/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.DELETE, "/api/transactions/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/api/transactions/{trxId}/pay")
+                                                .permitAll()
+
                                                 // .requestMatchers(HttpMethod.PUT, "/api/v1/user").permitAll()
-                                                .requestMatchers(ENDPOINTS.get("ROLE_CUSTOMER"))
-                                                .hasAnyAuthority("ROLE_CUSTOMER", "ROLE_ADMIN")
+
+                                                .requestMatchers(HttpMethod.POST, "/api/transactions")
+                                                .hasAnyAuthority("ROLE_CUSTOMER")
+                                                .requestMatchers(HttpMethod.PUT, "/api/transactions")
+                                                .hasAnyAuthority("ROLE_CUSTOMER")
+                                                .requestMatchers(HttpMethod.PUT, "/api/transactions/{userId}/approve")
+                                                .hasAnyAuthority("ROLE_ADMIN", "ROLE_STAFF")
                                                 .requestMatchers(HttpMethod.POST, "/api/instalment-types")
                                                 .hasAnyAuthority("ROLE_STAFF", "ROLE_ADMIN")
                                                 .requestMatchers(HttpMethod.PUT, "/api/instalment-types")

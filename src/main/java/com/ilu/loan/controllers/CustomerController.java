@@ -51,6 +51,10 @@ public class CustomerController {
     public ApiResponse<FileResponse> uploadAvatar(@PathVariable String customerId, @RequestBody MultipartFile avatar) throws IOException {
         FileResponse response = fileService.storeFile(avatar, "customers", customerId);
 
+        if (response == null) {
+            return ApiResponse.ok(null);
+        }
+        
         return ApiResponse.ok(response);
     }
     
