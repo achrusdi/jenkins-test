@@ -22,12 +22,12 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@SecurityRequirement(name = "Authorization")
 @RequestMapping("/api/instalment-types")
 public class InstalmentTypeController {
 
     private final InstalmentTypeService instalmentTypeService;
 
+    @SecurityRequirement(name = "Authorization")
     @PostMapping
     public ApiResponse<InstalmentTypeResponse> createInstalmentType(@RequestBody InstalmentTypeRequest request) {
         return ApiResponse.ok(instalmentTypeService.save(request).toResponse());
@@ -48,6 +48,7 @@ public class InstalmentTypeController {
         return ApiResponse.ok(instalmentTypes.stream().map(InstalmentType::toResponse).toList());
     }
 
+    @SecurityRequirement(name = "Authorization")
     @PutMapping
     public ApiResponse<InstalmentTypeResponse> updateInstalmentType(@RequestBody InstalmentTypeRequest request) {
         return ApiResponse.ok(instalmentTypeService.update(request).toResponse());
