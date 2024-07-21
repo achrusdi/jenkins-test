@@ -1,0 +1,606 @@
+{
+	"info": {
+		"_postman_id": "1a0f8208-1d8f-4ea2-a82c-3e06adc0b116",
+		"name": "Livecode Loan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32041595",
+		"_collection_link": "https://www.postman.com/payload-observer-81264034/workspace/livecode-loan/collection/32041595-1a0f8208-1d8f-4ea2-a82c-3e06adc0b116?action=share&source=collection_link&creator=32041595"
+	},
+	"item": [
+		{
+			"name": "role",
+			"item": [
+				{
+					"name": "CREATE role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"ROLE_STAFF\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "REGISTER user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"adminstaff@gmail.com\",\n    \"password\": \"ndog\",\n    \"roles\": [\"admin\", \"staff\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SIGNIN user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"if (jsonData.data && jsonData.data.token) {",
+									"    pm.collectionVariables.set(\"jwt_token\", jsonData.data.token);",
+									"    console.log(\"Token saved to environment variable: authToken\");",
+									"} else {",
+									"    console.log(\"Token not found in the response\");",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"adminstaff@gmail.com\",\n    \"password\": \"ndog\",\n    \"roles\": [\"admin\", \"staff\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user / customer",
+			"item": [
+				{
+					"name": "GET user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/80944011-fb8c-44a2-b652-78ed52e12c5d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"80944011-fb8c-44a2-b652-78ed52e12c5d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"6224d471-9570-4d92-963b-486d9a539197\",\n    \"firstName\": \"rifqi\",\n    \"lastName\": \"ramadhan\",\n    \"dateOfBirth\": \"2020-01-01\",\n    \"phone\": \"087123\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers/6224d471-9570-4d92-963b-486d9a539197",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers",
+								"6224d471-9570-4d92-963b-486d9a539197"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPLOAD avatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/ilu/Pictures/Screenshots/Screenshot from 2024-06-25 21-44-59.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/customers/ad58b1cf-4df0-4eae-ac77-b70dd9b85c13/upload/avatar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers",
+								"ad58b1cf-4df0-4eae-ac77-b70dd9b85c13",
+								"upload",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "instalment type",
+			"item": [
+				{
+					"name": "CREATE instalment type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"instalmentType\": \"ONE_MONTH\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/instalment-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"instalment-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET instalment  type by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/instalment-types/53b4f5b3-2364-44fd-8d1a-3bb7c7e185fa",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"instalment-types",
+								"53b4f5b3-2364-44fd-8d1a-3bb7c7e185fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all instalment type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/instalment-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"instalment-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE instalment type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"53b4f5b3-2364-44fd-8d1a-3bb7c7e185fa\",\n  \"instalmentType\": \"TWELVE_MONTHS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/instalment-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"instalment-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE instalment type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/instalment-types/73079e9b-90c1-455b-adcf-3327f9cad94a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"instalment-types",
+								"73079e9b-90c1-455b-adcf-3327f9cad94a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "loan type",
+			"item": [
+				{
+					"name": "CREATE loan type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"Pinjaman Kredit Kendaraan\",\n  \"maxLoan\": 100000000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/loan-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"loan-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all loan type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/loan-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"loan-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET loan type by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/loan-types/36c9f717-80ab-45aa-b9e0-c5e7d93858bb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"loan-types",
+								"36c9f717-80ab-45aa-b9e0-c5e7d93858bb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE loan type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"36c9f717-80ab-45aa-b9e0-c5e7d93858bb\",\n    \"type\": \"Pinjaman Kredit Kendaraan\",\n    \"maxLoan\": \"200000000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/loan-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"loan-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE loan type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/loan-types/36c9f717-80ab-45aa-b9e0-c5e7d93858bb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"loan-types",
+								"36c9f717-80ab-45aa-b9e0-c5e7d93858bb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "CREATE transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"loanType\": {\n    \"id\": \"3c579eb8-74e4-4460-8e92-e428a7392bed\"\n  },\n  \"instalmentType\": {\n    \"id\": \"26106452-853b-49b3-9b8e-ee6111894e1a\"\n  },\n  \"customer\": {\n    \"id\": \"ad58b1cf-4df0-4eae-ac77-b70dd9b85c13\"\n  },\n  \"nominal\": 10000000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET transaction by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions/0fe827f0-4181-45ea-ad03-108b93d2e9fb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"0fe827f0-4181-45ea-ad03-108b93d2e9fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PAY transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/ilu/Pictures/Screenshots/Screenshot from 2024-06-25 21-44-59.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/0fe827f0-4181-45ea-ad03-108b93d2e9fb/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"0fe827f0-4181-45ea-ad03-108b93d2e9fb",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APPROVE transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"0fe827f0-4181-45ea-ad03-108b93d2e9fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/bce24035-d98d-4387-8362-15bad1cf8301/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"bce24035-d98d-4387-8362-15bad1cf8301",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REJECT transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"0fe827f0-4181-45ea-ad03-108b93d2e9fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/bce24035-d98d-4387-8362-15bad1cf8301/reject",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"bce24035-d98d-4387-8362-15bad1cf8301",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

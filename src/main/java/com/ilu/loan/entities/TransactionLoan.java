@@ -74,7 +74,7 @@ public class TransactionLoan {
                 .customerId(customer.getId())
                 .approvalStatus(approvalStatus)
                 .approvedAt(approvedAt)
-                .transactionDetailResponses(transactionLoanDetail.stream().map(TransactionLoanDetail::toResponse).toList())
+                .transactionDetailResponses(transactionLoanDetail == null ? null : transactionLoanDetail.stream().map(TransactionLoanDetail::toResponse).toList())
                 // .transactionDetailResponses(transactionLoanDetail)
                 .approvedBy(ApprovedBy)
                 .createdAt(createdAt)

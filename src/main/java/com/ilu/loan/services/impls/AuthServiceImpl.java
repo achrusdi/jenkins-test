@@ -83,9 +83,10 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
         userRepository.flush();
 
-        if (request.getRoles() != null) {
+        if (request.getRoles() != null && request.getRoles().contains("customer")) {
             Customer customer = new Customer();
             customer.setUser(user);
+            customer.setStatus("1");
             customerService.create(customer);
         }
 
