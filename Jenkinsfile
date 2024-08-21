@@ -15,13 +15,13 @@ pipeline {
         
         stage('Test') {
             steps {
-                echo 'Hello Test dong'
+                echo 'Hello Test'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Hello Deploy dong'
+                echo 'Hello Deploy'
             }
         }
 
