@@ -9,23 +9,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v3
-
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '16'
-
-      # - name: Install dependencies
-      #   run: npm install
-
-      # - name: Run build
-      #   run: npm run build
+      - name: Get Crumb
+        run: |
+          CRUMB=$(curl --silent --location --request GET 'https://e272-180-248-33-142.ngrok-free.app/crumbIssuer/api/json' \
+            --header 'Authorization: Basic dXNlcmFwaTppbHUxMjM=' \
+            --header 'Accept: */*' \
+            --header 'Host: e272-180-248-33-142.ngrok-free.app' \
+            --header 'Connection: keep-alive' \
+            --header 'Cookie: JSESSIONID.edee580c=node011p9yonj3af6n1rhydhvrf0mwu16.node0' | \
+            jq -r '.crumb')
+          echo "CRUMB=$CRUMB" >> $GITHUB_ENV
 
       - name: Trigger Jenkins Job
         run: |
-          curl --location --request POST 'https://e272-180-248-33-142.ngrok-free.app/job/test-jenkins-pipeline-1/build' --header 'Jenkins-Crumb: 8cb6c335cd1b96d61b352fd2588a66d16a943bb4c3d94d55c26924de21eccf3c' --header 'Authorization: Basic dXNlcmFwaTppbHUxMjM=' --header 'Accept: */*' --header 'Host: e272-180-248-33-142.ngrok-free.app' --header 'Connection: keep-alive' --header 'Cookie: JSESSIONID.edee580c=node011p9yonj3af6n1rhydhvrf0mwu16.node0'
+          curl --location --request POST 'https://e272-180-248-33-142.ngrok-free.app/job/test-jenkins-pipeline-1/build' \
+            --header "Jenkins-Crumb: ${{ env.CRUMB }}" \
+            --header 'Authorization: Basic dXNlcmFwaTppbHUxMjM=' \
+            --header 'Accept: */*' \
+            --header 'Host: e272-180-248-33-142.ngrok-free.app' \
+            --header 'Connection: keep-alive' \
+            --header 'Cookie: JSESSIONID.edee580c=node011p9yonj3af6n1rhydhvrf0mwu16.node0'
+
         env:
           JENKINS_URL: ${{ secrets.JENKINS_URL }}
           JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
