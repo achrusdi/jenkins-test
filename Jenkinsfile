@@ -18,10 +18,10 @@ pipeline {
                 echo 'Hello Test'
             }
         }
-        
+
         stage('Deploy') {
             steps {
-                echo 'Hello Deploy'
+                echo 'Hello Deploy dong'
             }
         }
 
