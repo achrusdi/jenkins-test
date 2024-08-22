@@ -46,7 +46,8 @@ public class SecurityConfiguration {
                                         "/swagger-ui.html/**",
                                         "/swagger-ui/**",
                                         "/api/customers/**",
-                                        "/api/roles"
+                                        "/api/roles",
+                                        "/api/test"
 
                         },
                         "ROLE_CUSTOMER", new String[] {

@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh './mvnw clean install'
+                sh 'docker-compose up --build -d'
             }
         }
 
