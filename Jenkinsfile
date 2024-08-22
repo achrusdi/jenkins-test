@@ -1,18 +1,25 @@
 pipeline {
     // agent any
-    agent{
+    agent {
         node {
-            label "linux && java21"
+            label 'linux && java21'
         }
     }
 
     stages {
+        // stage('Checkout') {
+        //     steps {
+        //         git branch: 'main', url: 'https://github.com/achrusdi/jenkins-test.git'
+        //     }
+        // }
+
         stage('Build') {
             steps {
-                echo 'Hello Build ndog'
+                echo 'Building the project...'
+                sh './mvnw clean install'
             }
         }
-        
+
         stage('Test') {
             steps {
                 echo 'Hello Test'
@@ -24,10 +31,9 @@ pipeline {
                 echo 'Hello Deploy'
             }
         }
-
     }
 
-    post{
+    post {
         always {
             echo 'This will always run'
         }
