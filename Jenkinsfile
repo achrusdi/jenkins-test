@@ -16,7 +16,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'docker-compose up --build -d'
+            }
+        }
+
+        stage('Docker Compose Up') {
+            steps {
+                script {
+                    // Menjalankan docker-compose down untuk menghentikan dan menghapus container lama
+                    // sh 'docker-compose down'
+
+                    // Menjalankan docker-compose up dengan opsi --build untuk membangun ulang image dan menjalankan container
+                    // sh 'docker-compose up --build -d'
+                }
             }
         }
 
