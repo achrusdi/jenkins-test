@@ -32,12 +32,29 @@ pipeline {
         stage('Docker Compose Up') {
             steps {
                 script {
-                    // Menjalankan docker-compose down untuk menghentikan dan menghapus container lama
-                    sh 'docker-compose down'
-
-                    // Menjalankan docker-compose up dengan opsi --build untuk membangun ulang image dan menjalankan container
-                    sh 'docker-compose up --build -d'
+                    withEnv(
+                        [
+                            'POSTGRES_DB=livecode_loan_springboot',
+                            'POSTGRES_USER=postgres',
+                            'POSTGRES_PASSWORD=ndog12345',
+                            'SPRING_HOST=db',
+                            'SPRING_DATABASE=livecode_loan_springboot',
+                            'SPRING_DATASOURCE_USERNAME=postgres',
+                            'SPRING_DATASOURCE_PASSWORD=ndog12345',
+                            'SPRING_JPA_HIBERNATE_DDL_AUTO=update'
+                        ]
+                    ) {
+                        sh 'docker-compose up --build -d'
+                    }
                 }
+
+                // script {
+                //     // Menjalankan docker-compose down untuk menghentikan dan menghapus container lama
+                //     sh 'docker-compose down'
+
+            //     // Menjalankan docker-compose up dengan opsi --build untuk membangun ulang image dan menjalankan container
+            //     sh 'docker-compose up --build -d'
+            // }
             }
         }
 
