@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15.2
+    environment:
+      POSTGRES_DB: livecode_loan_springboot
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ndog12345
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - springboot-network
+
+  app:
+    build: .
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_HOST: db
+      SPRING_DATABASE: livecode_loan_springboot
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ndog12345
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
+    networks:
+      - springboot-network
+
+volumes:
+  postgres-data:
+
+networks:
+  springboot-network:
+    driver: bridge
